@@ -130,6 +130,16 @@ export default {
                             labelText : "分类名称",
                             field : "name",
                             type : "text"
+                        },
+                        {
+                            labelText : "分类背景图片",
+                            field : "bgUrl",
+                            type : "text"
+                        },
+                        {
+                            labelText : "分类说明",
+                            field : "intro",
+                            type : "text"
                         }
                     ],
                     data : {
