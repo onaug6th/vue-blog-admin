@@ -1,27 +1,6 @@
 <template>
 
     <div class="app">
-        <!-- 页面顶部导航栏 -->
-        <nav class="top-nav container-fluid" :class="{'scroll' : navShow}">
-            <div class="top-nav-mid container">
-                <div class="top-nav-content">
-                    <ul class="menuNav">
-                        <li>
-                            <router-link to="/">首页</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/memory">印象</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/wall">墙</router-link>
-                        </li>
-                        <li>
-                            <router-link to="/about">关于</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
         
         <transition name="fade">
             <!-- 路由页面出口 -->
