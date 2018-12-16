@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label>type</label>
                 <select name="" class="form-control" v-model="formData.type">
-                    <option v-for="(option,index ) in typeList" :key="index" :value="option.id">{{ option.name }}</option>
+                    <option v-for="(option, index) in typeList" :key="index" :value="option.id">{{ option.name }}</option>
                 </select>
             </div>
 

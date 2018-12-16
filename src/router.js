@@ -17,6 +17,12 @@ const newWorldChildren = [
         name: "articleTypeManage",
         component: () => import("./components/ArticleTypeManage.vue")
     },
+    //  文章标签管理
+    {
+        path: "/tagManage",
+        name: "tagManage",
+        component: () => import("./components/TagManage.vue")
+    },
     //  文章图片管理
     {
         path: "/articlePictureManage",

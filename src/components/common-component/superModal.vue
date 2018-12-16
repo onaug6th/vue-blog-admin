@@ -18,11 +18,19 @@
                                     <label class="col-sm-2">
                                         {{ item.labelText }}
                                     </label>
-                                    <template v-if="item.type == 'text'">
-                                        <div class="col-sm-4">
+                                    <div class="col-sm-4">
+                                        <template v-if="item.type == 'text'">
                                             <input class="form-control" v-model="config.form.data[item.field]">
-                                        </div>
-                                    </template>
+                                        </template>
+                                        <template v-if="item.type == 'select'">
+                                            <select class="form-control" v-model="config.form.data[item.field]">
+                                                <option v-for="(option, index) in item.options"
+                                                        :key="index"
+                                                        :value="option.key"
+                                                        >{{option.value}}</option>
+                                            </select>
+                                        </template>
+                                    </div>
                                 </div>
                             </template>
                         </form>

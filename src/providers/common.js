@@ -29,6 +29,21 @@ const methods = {
         }
     },
     /**
+     * 拼装数据键值对
+     * @param {array} data 
+     * @param {string} key 
+     * @param {string} value 
+     */
+    returnDataKeyValue(data, key, value){
+        return data.map((item) =>{
+            const obj = {
+                key: item["key"] || item[key],
+                value: item["value"] || item[value]
+            }
+            return obj;
+        });
+    },
+    /**
      * 事件中转，用于全部通用组件
      * @param {string} event 事件名称
      * @param {object} item 当前对象

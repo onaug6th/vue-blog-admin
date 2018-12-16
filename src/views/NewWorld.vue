@@ -134,6 +134,11 @@ export default {
                     icon : "cog"
                 },
                 {
+                    link : "tagManage",
+                    name : "文章标签管理",
+                    icon : "cog"
+                },
+                {
                     link : "articlePictureManage",
                     name : "文章图片管理",
                     icon : "cog"
