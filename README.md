@@ -1,6 +1,6 @@
 # onaug6th
 
-个人博客后台管理系统
+个人博客的后台管理系统
 
 后端代码 : https://github.com/onaug6th/onaug6th-backEnd
 
@@ -11,9 +11,6 @@
 服务端语言   node.js
 数据库       mysql
 对象关系模型  sequelize
-
-如果你对封装通用函数，复用通用组件，node.js这方面不了解的话。希望该项目能够帮到你。😄
-目前还有一些细枝末节的问题还没处理，我会尽快优化的！
 
 ### 用法
 
