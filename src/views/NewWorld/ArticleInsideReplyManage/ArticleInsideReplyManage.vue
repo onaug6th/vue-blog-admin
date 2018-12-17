@@ -161,6 +161,7 @@ export default {
             this.modalConfig = {
                 title : "编辑文章回复",
                 backdrop : "static",
+                show : false,
                 form : {
                     config : [
                         {
@@ -255,8 +256,7 @@ export default {
                             }
                         }
                     ]
-                },
-                show : false
+                }
             }
         },
         /**
@@ -312,7 +312,7 @@ export default {
 
         },
         /**
-         * 删除文章回复
+         * 删除文章楼中楼回复
          * @param {object} item 组件传回来的我也忘了是啥
          */
         deleteArticleReply(item){
@@ -320,13 +320,13 @@ export default {
                 return item["id"]
             });
 
-            this.$http.delete("article", {
+            this.$http.delete("insideReply", {
                     data : {
                         arr : checkedData
                     }
                 })
                 .then( (result) =>{
-                    this.$swal("删除文章成功", "", "success");
+                    this.$swal("删除文章楼中楼回复成功", "", "success");
                     this.getInsideReplyList();
                 });
                 

@@ -21,6 +21,11 @@
             </div>
 
             <div class="form-group">
+                <label>tag</label>
+                <input type="text" class="form-control" placeholder="tag" v-model="formData.tag">
+            </div>
+
+            <div class="form-group">
                 <label>background-image</label>
                 <fileUpload ref="file"></fileUpload>
             </div>
@@ -98,6 +103,7 @@ export default {
                 title: "",
                 intro: "",
                 type: "",
+                tag: "",
                 bgUrl: "",
                 content: "",
                 show: "",
@@ -118,6 +124,7 @@ export default {
                     for(let i in result.data){
                         this.formData[i] = result.data[i];
                     }
+                    //  设置图片
                     this.$refs["file"].setImgUrl(result.data.bgUrl);
                 }
             });
@@ -131,11 +138,11 @@ export default {
             const that = this;
             that.formData.content = that.$refs["tinymceEdit"].getTinymceContent();
             //  先保存文章，获取文章id
-            that.$http.post("article", that.formData).then((res)=>{
+            that.$http.post("article", that.formData).then((res) =>{
                 
                 //  如果上传了文章背景图片
                 if(that.$refs["file"].getImg()){
-                    that.saveBackGroundImg(res).then((result)=>{
+                    that.saveBackGroundImg(res).then((result) =>{
                         
                         that.$swal("新建文章成功", "", "success");
 
@@ -147,7 +154,7 @@ export default {
                 const picArr = that.$refs["tinymceEdit"].picArr;
                 //  说明在新增文章时，上传了文章内容中的图片
                 if(picArr.length > 0){
-                    const picIdArr = picArr.map((item, index)=>{
+                    const picIdArr = picArr.map((item, index) =>{
                         return item.id;
                     });
                     const param = {

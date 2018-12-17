@@ -139,6 +139,7 @@ export default {
             this.modalConfig = {
                 title : "添加分类",
                 backdrop : "static",
+                show : false,
                 form : {
                     config : [
                         {
@@ -179,8 +180,7 @@ export default {
                             }
                         }
                     ]
-                },
-                show : false
+                }
             }
         },
         /**

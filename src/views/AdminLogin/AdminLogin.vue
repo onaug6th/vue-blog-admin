@@ -42,7 +42,7 @@ export default {
          * 记住哥
          */
         rememberBro(){
-            return this.$swal("记住个毛，就你一个人", "", "success");
+            return this.$swal("记住个毛，就你一个人");
         },
         /**
          * 前往新世界

@@ -153,6 +153,7 @@ export default {
             this.modalConfig = {
                 title : "编辑文章回复",
                 backdrop : "static",
+                show : false,
                 form : {
                     config : [
                         {
@@ -229,8 +230,7 @@ export default {
                             }
                         }
                     ]
-                },
-                show : false
+                }
             }
         },
         /**
