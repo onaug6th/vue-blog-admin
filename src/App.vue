@@ -36,24 +36,11 @@ export default {
         superFooter
     },
     mounted() {
-        window.addEventListener('scroll', this.handleScroll);
         articleTypeList().then( (result) =>{
             this.$store.commit("updateArticleTypeList", result.data.rows);
         });
     },
     methods:{
-        //  监听滚动事件
-        handleScroll(){
-            if(this.navFixed){
-                return false;
-            }
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            if(scrollTop > 200){
-                return this.$store.commit("toggleNavShow", true);
-                
-            }
-            return this.$store.commit("toggleNavShow", false);
-        }
     }
 }
 </script>
