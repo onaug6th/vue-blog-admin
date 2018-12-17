@@ -20,7 +20,7 @@
 //  超级模态框
 import superModal from './superModal';
 //  文件上传
-import fileUpload from "../../components/common-component/fileUpload";
+import fileUpload from "./fileUpload";
 
 export default {
     name: 'tinymceUpload',

@@ -57,7 +57,7 @@ export default {
                         const router = {
                             path : result.data.link
                         }
-                        that.$store.commit("recodeToken", result.data.token);
+                        that.$store.commit("recordToken", result.data.token);
                         that.$router.push(router);
                     }else{
                         that.$swal(result.detailMsg, "", "success");

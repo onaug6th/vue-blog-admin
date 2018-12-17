@@ -32,20 +32,18 @@ export default {
          * 进入新世界
          */
         newWorld(){
-            this.$router.push({
-                path : "/adminLogin"
-            });
+            this.$swal("？？？");
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-footer{
-    color: #555;
-    height:120px;
-    box-shadow: 0 0 25px #ccc;
-    text-align: center;
-    padding-top: 2rem;
-}
+    footer{
+        color: #555;
+        height:120px;
+        box-shadow: 0 0 25px #ccc;
+        text-align: center;
+        padding-top: 2rem;
+    }
 </style>

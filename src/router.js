@@ -9,43 +9,43 @@ const newWorldChildren = [
     {
         path: "/articleEdit",
         name: "articleEdit",
-        component: () => import("./components/ArticleEdit.vue")
+        component: () => import("./views/NewWorld/ArticleEdit/ArticleEdit.vue")
     },
     //  文章分类管理
     {
         path: "/articleTypeManage",
         name: "articleTypeManage",
-        component: () => import("./components/ArticleTypeManage.vue")
+        component: () => import("./views/NewWorld/ArticleTypeManage/ArticleTypeManage.vue")
     },
     //  文章标签管理
     {
         path: "/tagManage",
         name: "tagManage",
-        component: () => import("./components/TagManage.vue")
+        component: () => import("./views/NewWorld/TagManage/TagManage.vue")
     },
     //  文章图片管理
     {
         path: "/articlePictureManage",
         name: "articlePictureManage",
-        component: () => import("./components/ArticlePictureManage.vue")
+        component: () => import("./views/NewWorld/ArticlePictureManage/ArticlePictureManage.vue")
     },
     //  文章管理
     {
         path: "/articleManage",
         name: "articleManage",
-        component: () => import("./components/ArticleManage.vue")
+        component: () => import("./views/NewWorld/ArticleManage/ArticleManage.vue")
     },
     //  文章回复管理
     {
         path: "/articleReplyManage",
         name: "articleReplyManage",
-        component: () => import("./components/ArticleReplyManage.vue")
+        component: () => import("./views/NewWorld/ArticleReplyManage/ArticleReplyManage.vue")
     },
     //  文章楼中楼回复管理
     {
         path: "/articleInsideReplyManage",
         name: "articleInsideReplyManage",
-        component: () => import("./components/ArticleInsideReplyManage.vue")
+        component: () => import("./views/NewWorld/ArticleInsideReplyManage/ArticleInsideReplyManage.vue")
     }
 ];
 
@@ -66,13 +66,13 @@ const routes = [
     {
         path: "/",
         name: "adminLogin",
-        component: () => import("./views/AdminLogin.vue")
+        component: () => import("./views/AdminLogin/AdminLogin.vue")
     },
     //  管理员登陆
     {
         path: "/adminLogin",
         name: "adminLogin",
-        component: () => import("./views/AdminLogin.vue"),
+        component: () => import("./views/AdminLogin/AdminLogin.vue"),
         meta : {
             showNav : true
         }
@@ -81,7 +81,7 @@ const routes = [
     {
         path: "/newWorld",
         name: "newWorld",
-        component: () => import("./views/NewWorld.vue"),
+        component: () => import("./views/NewWorld/NewWorld.vue"),
         meta : {
             showNav : true,
             requireAuth: true

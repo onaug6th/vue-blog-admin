@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="alert top-alert">管理你的文章分类，蠢货<br />
+        <p class="alert top-alert">管理你的文章，蠢货<br />
             <font size="1">货蠢，类分章文的你理管</font>
         </p>
         <div class="row">
@@ -9,45 +9,40 @@
                     <div class="portlet-title">
                         <div class="caption" style="color:#32c5d2;">
                             <i class="glyphicon glyphicon-user"></i>
-                            <span> 文章图片管理 </span>
+                            <span> 文章管理 </span>
                         </div>
                     </div>
                     <div>
                         <superOperate :config="operateConfig"></superOperate>
-                        <superTable ref="superTable" :config="tableConfig"></superTable>
+                        <superTable ref="superTable" :config="tableConfig" @pageChange="getArticleList"></superTable>
                     </div>
                 </div>
             </div>
         </div>
-        <superModal :config="modalConfig"></superModal>
     </div>
 </template>
 
 <script>
-import superOperate from "../components/common-component/superOperate.vue";
-import superTable from "../components/common-component/superTable.vue";
-import superModal from "../components/common-component/superModal.vue";
-import { articleTypeList } from "../api/articleType.js";
+import superOperate from "@/components/superOperate.vue";
+import superTable from "@/components/superTable.vue";
+import { articleTypeList } from "@/api/articleType.js";
 
 export default {
-    name: 'articlePictureManage',
+    name: 'articleManage',
     components: {
         superOperate,
-        superTable,
-        superModal
+        superTable
     },
     data(){
         return {
             tableConfig : {},
-            operateConfig : {},
-            modalConfig : {}
+            operateConfig : {}
         }
     },
     mounted(){
         this.setTableConfig();
         this.setOperateConfig();
-        this.setModalConfig();
-        this.getArticleTypeList();
+        this.getArticleList();
     },
     computed:{
 
@@ -61,19 +56,27 @@ export default {
                 colOption : [
                     {
                         field : "id",
-                        label : "图片ID"
-                    },
-                    {
-                        field : "articleId",
-                        label : "图片所属文章id"
-                    },
-                    {
-                        field : "path",
-                        label : "图片路径"
+                        label : "文章ID"
                     },
                     {
                         field : "type",
-                        label : "图片类型"
+                        label : "文章所属类型"
+                    },
+                    {
+                        field : "title",
+                        label : "文章标题"
+                    },
+                    {
+                        field : "bgUrl",
+                        label : "背景图片"
+                    },
+                    {
+                        field : "read",
+                        label : "阅读量"
+                    },
+                    {
+                        field : "like",
+                        label : "点赞"
                     },
                     {
                         field : "operate",
@@ -84,7 +87,7 @@ export default {
                                     <button 
                                         class="btn btn-primary" 
                                         onClick={() => {
-                                            this.openModal(params.row, "edit");
+                                            this.openEdit(params.row, "edit");
                                         }}
                                         >编辑</button>
                                 </div>
@@ -107,24 +110,14 @@ export default {
             this.operateConfig = {
                 list : [
                     {
-                        type : "button",
-                        text : "新增图片",
-                        events : {
-                            onClick : {
-                                fn : this.openModal,
-                                params : ["add"]
-                            }
-                        }
-                    },
-                    {
                         type : "dropdown",
                         text : "删除操作",
                         list : [
                             {
-                                text : "删除图片",
+                                text : "删除文章",
                                 events : {
                                     onClick : {
-                                        fn : this.deletePicture,
+                                        fn : this.deleteArticle,
                                         params : [this.tableConfig]
                                     }
                                 }
@@ -134,81 +127,17 @@ export default {
                 ]
             }
         },
-        //  设置超级模态框组件配置
-        setModalConfig(){
-            this.modalConfig = {
-                title : "添加分类",
-                backdrop : "static",
-                form : {
-                    config : [
-                        {
-                            labelText : "分类名称",
-                            field : "name",
-                            type : "text"
-                        }
-                    ],
-                    data : {
-                        name : ""
-                    }
-                },
-                footer: {
-                    textalign : "center",
-                    btnList : [
-                        {
-                            id : "add",
-                            show : true,
-                            type : "primary",
-                            text : "新增",
-                            events : {
-                                onClick : {
-                                    fn : this.commonHandle,
-                                    params : ["add"]
-                                }
-                            }
-                        },
-                        {
-                            id : "edit",
-                            show : true,
-                            type : "primary",
-                            text : "修改",
-                            events : {
-                                onClick : {
-                                    fn : this.commonHandle,
-                                    params : ["edit"]
-                                }
-                            }
-                        }
-                    ]
-                },
-                show : false
-            }
-        },
         /**
-         * 打开超级模态框
-         * @param {object} item 忘了，是自己写的模态框组件里传回来的，反正很多数据在里面。
-         * @param {string} type 类型
+         * 打开编辑页面
+         * @param {object} item 行对象
          */
-        openModal(item, type){
-            
-            const modal = this.modalConfig;
-            const footer = modal.footer;
-            
-            if(type == "edit"){
-                for(let i in item){
-                    (modal.form.data[i] = item[i]);
+        openEdit(item){
+            this.$router.push({
+                path : `/articleEdit`,
+                query : {
+                    article : item
                 }
-            }else{
-                for(let i in modal.form.data){
-                    modal.form.data[i] = "";
-                }
-            }
-
-            footer.btnList.forEach((btn, index)=>{
-                btn.id == type ? (btn.show = true) : (btn.show = false);
-
             });
-
-            modal.show = true;
         },
         /**
          * 通用操作，处理模态框新增和编辑动作
@@ -225,21 +154,22 @@ export default {
 
             that.$http[method](url, formData)
                 .then( (result) =>{
-                    that.$swal("", result.detailMsg, "success");
+                    that.$swal("不知道什么操作成功", result.detailMsg, "success");
                     modalConfig.show = false;
-                    that.getArticleTypeList();
+                    that.getArticleList();
                 });
 
         },
         //  获取文章类型列表
-        getArticleTypeList(){
-
+        getArticleList(){
+            
             this.$http({
-                url: 'articlePicture/list',
+                url: 'article/list',
                 method: 'post',
                 data : {
                     page : this.tableConfig.pagination.currentPage,
-                    pageSize : this.tableConfig.pagination.pageSize
+                    pageSize : this.tableConfig.pagination.pageSize,
+                    type : "admin"
                 }
             }).then((result) =>{
                     this.tableConfig.data = result.data.rows;
@@ -248,23 +178,22 @@ export default {
 
         },
         /**
-         * 删除文章图片
+         * 删除文章
          * @param {object} item 组件传回来的我也忘了是啥
          */
-        deletePicture(item){
-            
+        deleteArticle(item){
             const checkedData = this.$refs.superTable.checkedData.map((item, index)=>{
                 return item["id"]
             });
 
-            this.$http.delete("articlePicture", {
+            this.$http.delete("article", {
                     data : {
                         arr : checkedData
                     }
                 })
                 .then( (result) =>{
-                    this.$swal("删除文章图片成功", "", "success");
-                    this.getArticleTypeList();
+                    this.$swal("删除文章成功", result.detailMsg, "success");
+                    this.getArticleList();
                 });
                 
         }

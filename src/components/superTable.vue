@@ -87,7 +87,7 @@
 
 
 <script>
-import pagination from "../common-component/pagination";
+import pagination from "./pagination";
 
 export default {
     name: 'superTable',

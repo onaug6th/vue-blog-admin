@@ -9,7 +9,7 @@
                     <div class="portlet-title">
                         <div class="caption" style="color:#32c5d2;">
                             <i class="glyphicon glyphicon-user"></i>
-                            <span> 文章类型管理 </span>
+                            <span> 文章图片管理 </span>
                         </div>
                     </div>
                     <div>
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import superOperate from "../components/common-component/superOperate.vue";
-import superTable from "../components/common-component/superTable.vue";
-import superModal from "../components/common-component/superModal.vue";
-import { articleTypeList } from "../api/articleType.js";
+import superOperate from "@/components/superOperate.vue";
+import superTable from "@/components/superTable.vue";
+import superModal from "@/components/superModal.vue";
+import { articleTypeList } from "@/api/articleType.js";
 
 export default {
-    name: 'articleTypeManage',
+    name: 'articlePictureManage',
     components: {
         superOperate,
         superTable,
@@ -61,11 +61,19 @@ export default {
                 colOption : [
                     {
                         field : "id",
-                        label : "文章分类ID"
+                        label : "图片ID"
                     },
                     {
-                        field : "name",
-                        label : "文章分类名称"
+                        field : "articleId",
+                        label : "图片所属文章id"
+                    },
+                    {
+                        field : "path",
+                        label : "图片路径"
+                    },
+                    {
+                        field : "type",
+                        label : "图片类型"
                     },
                     {
                         field : "operate",
@@ -84,7 +92,14 @@ export default {
                         }
                     }
                 ],
-                data : []
+                data : [],
+                pagination : {
+                    prevText : "前页",
+                    nextText : "后页",
+                    currentPage : 1,
+                    pageSize : 10,
+                    totalPages : 0
+                }
             }
         },
         //  设置操作区域组件配置
@@ -93,7 +108,7 @@ export default {
                 list : [
                     {
                         type : "button",
-                        text : "新增分类",
+                        text : "新增图片",
                         events : {
                             onClick : {
                                 fn : this.openModal,
@@ -106,10 +121,10 @@ export default {
                         text : "删除操作",
                         list : [
                             {
-                                text : "删除分类",
+                                text : "删除图片",
                                 events : {
                                     onClick : {
-                                        fn : this.deleteType,
+                                        fn : this.deletePicture,
                                         params : [this.tableConfig]
                                     }
                                 }
@@ -129,16 +144,6 @@ export default {
                         {
                             labelText : "分类名称",
                             field : "name",
-                            type : "text"
-                        },
-                        {
-                            labelText : "分类背景图片",
-                            field : "bgUrl",
-                            type : "text"
-                        },
-                        {
-                            labelText : "分类说明",
-                            field : "intro",
                             type : "text"
                         }
                     ],
@@ -180,7 +185,7 @@ export default {
         },
         /**
          * 打开超级模态框
-         * @param {object} item 忘了，是自己写的模态框里传回来的，反正很多数据在里面。
+         * @param {object} item 忘了，是自己写的模态框组件里传回来的，反正很多数据在里面。
          * @param {string} type 类型
          */
         openModal(item, type){
@@ -220,7 +225,7 @@ export default {
 
             that.$http[method](url, formData)
                 .then( (result) =>{
-                    that.$swal(result.detailMsg, "", "success");
+                    that.$swal("", result.detailMsg, "success");
                     modalConfig.show = false;
                     that.getArticleTypeList();
                 });
@@ -229,27 +234,36 @@ export default {
         //  获取文章类型列表
         getArticleTypeList(){
 
-            articleTypeList().then( (result) =>{
+            this.$http({
+                url: 'articlePicture/list',
+                method: 'post',
+                data : {
+                    page : this.tableConfig.pagination.currentPage,
+                    pageSize : this.tableConfig.pagination.pageSize
+                }
+            }).then((result) =>{
                     this.tableConfig.data = result.data.rows;
+                    this.tableConfig.pagination.totalPages = result.data.totalPages
                 });
+
         },
         /**
-         * 删除文章类型
+         * 删除文章图片
          * @param {object} item 组件传回来的我也忘了是啥
          */
-        deleteType(item){
-
+        deletePicture(item){
+            
             const checkedData = this.$refs.superTable.checkedData.map((item, index)=>{
                 return item["id"]
             });
 
-            this.$http.delete("articleType", {
+            this.$http.delete("articlePicture", {
                     data : {
                         arr : checkedData
                     }
                 })
                 .then( (result) =>{
-                    this.$swal("删除文章分类成功", "", "success");
+                    this.$swal("删除文章图片成功", "", "success");
                     this.getArticleTypeList();
                 });
                 

@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 <label>type</label>
-                <select name="" class="form-control" v-model="formData.type">
+                <select class="form-control" v-model="formData.type">
                     <option v-for="(option, index) in typeList" :key="index" :value="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -60,11 +60,11 @@
 
 <script>
 //  富文本编辑器
-import tinymceEdit from "../components/common-component/tinymceEdit";
+import tinymceEdit from "@/components/tinymceEdit";
 //  文件上传
-import fileUpload from "../components/common-component/fileUpload";
+import fileUpload from "@/components/fileUpload";
 //  接口
-import { articleTypeList } from "../api/articleType.js";
+import { articleTypeList } from "@/api/articleType.js";
 
 export default {
     name: "articleEdit",

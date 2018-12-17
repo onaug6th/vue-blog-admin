@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p class="alert top-alert">管理你的文章标签，蠢货
+    <p class="alert top-alert">文章标签管理
       <br>
-      <font size="1">货蠢，签标章文的你理管</font>
+      <font size="1">tag Manage</font>
     </p>
     <div class="row">
       <div class="col-sm-12">
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import superOperate from "../components/common-component/superOperate.vue";
-import superTable from "../components/common-component/superTable.vue";
-import superModal from "../components/common-component/superModal.vue";
-import { articleTypeList } from "../api/articleType.js";
+import superOperate from "@/components/superOperate.vue";
+import superTable from "@/components/superTable.vue";
+import superModal from "@/components/superModal.vue";
+import { articleTypeList } from "@/api/articleType.js";
 
 export default {
-  name: "tagTypeManage",
+  name: "tagManage",
   components: {
     superOperate,
     superTable,

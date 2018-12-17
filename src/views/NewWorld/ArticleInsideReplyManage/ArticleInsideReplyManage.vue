@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import superOperate from "../components/common-component/superOperate.vue";
-import superTable from "../components/common-component/superTable.vue";
-import superModal from "../components/common-component/superModal.vue";
-import { articleTypeList } from "../api/articleType.js";
+import superOperate from "@/components/superOperate.vue";
+import superTable from "@/components/superTable.vue";
+import superModal from "@/components/superModal.vue";
+import { articleTypeList } from "@/api/articleType.js";
 
 export default {
     name: 'articleInsideReplyManage',
