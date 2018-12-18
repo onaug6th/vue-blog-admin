@@ -27,6 +27,7 @@
 
             <div class="form-group">
                 <label>background-image</label>
+                <input type="text" class="form-control" placeholder="bgUrl" v-model="formData.bgUrl">
                 <fileUpload ref="bgImg"></fileUpload>
             </div>
 
