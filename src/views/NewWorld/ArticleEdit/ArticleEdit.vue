@@ -27,7 +27,7 @@
 
             <div class="form-group">
                 <label>background-image</label>
-                <fileUpload ref="file"></fileUpload>
+                <fileUpload ref="bgImg"></fileUpload>
             </div>
 
             <div class="form-group">
@@ -119,13 +119,17 @@ export default {
          */
         getArticle(id){
             
-            this.$http.get(`article/${id}`).then((result) =>{
+            this.$http.get(`article/${id}`, {
+                        params: {
+                            type : "admin"
+                        }
+                    }).then((result) =>{
                 if(result.code == 0 ){
                     for(let i in result.data){
                         this.formData[i] = result.data[i];
                     }
                     //  设置图片
-                    this.$refs["file"].setImgUrl(result.data.bgUrl);
+                    this.$refs["bgImg"].setImgUrl(result.data.bgUrl);
                 }
             });
 
@@ -140,29 +144,32 @@ export default {
             //  先保存文章，获取文章id
             that.$http.post("article", that.formData).then((res) =>{
                 
-                //  如果上传了文章背景图片
-                if(that.$refs["file"].getImg()){
-                    that.saveBackGroundImg(res).then((result) =>{
-                        
-                        that.$swal("新建文章成功", "", "success");
+                that.$swal("新建文章成功", "", "success");
 
+                //  如果上传了文章背景图片
+                if(that.$refs["bgImg"].getImg()){
+                    that.saveBackGroundImg(res).then((result) =>{
+                        that.$swal("文章背景图片上传成功", "", "success");
                     });
-                }else{
-                    that.$swal("新建文章成功", "", "success");
                 }
-                
+
+                //  如果文章内容中也上传了图片
                 const picArr = that.$refs["tinymceEdit"].picArr;
+
                 //  说明在新增文章时，上传了文章内容中的图片
                 if(picArr.length > 0){
-                    const picIdArr = picArr.map((item, index) =>{
+                    const picIdArr = picArr.map(item =>{
                         return item.id;
                     });
                     const param = {
                         id : picIdArr,
                         articleId : res.data.id
                     }
-                    that.updateArticlePictureId(param);
-                    that.$swal("文章的内容图片也上传成功了", result.detailMsg, "success");
+                    that.updateArticlePictureId(param).then((result) =>{
+                        if(result){
+                            that.$swal("文章的内容图片也上传成功了");
+                        }
+                    });
                 }
             });
 
@@ -173,11 +180,7 @@ export default {
          */
         updateArticlePictureId(param){
 
-            this.$http.put(`articlePicture/id`, param).then((result) =>{
-                if( result ){
-                    console.info("新增文章时，更新文章图片的文章id索引成功");
-                }
-            });
+            return this.$http.put(`articlePicture/id`, param);
         },
         /**
          * 保存背景图片
@@ -187,7 +190,7 @@ export default {
             const formData = new FormData();
 
             formData.append("articleId", res.data.id);
-            formData.append("bgImg", this.$refs["file"].getImg());
+            formData.append("bgImg", this.$refs["bgImg"].getImg());
 
             return this.$http.post("upload/bgImg", formData);
         },

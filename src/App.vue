@@ -24,14 +24,7 @@ export default {
             
         }
     },
-    computed: {
-        navShow(){
-            return this.$store.state.navShow;
-        },
-        navFixed(){
-            return this.$store.state.navFixed;
-        }
-    },
+    computed: {},
     components:{
         superFooter
     },

@@ -40,18 +40,18 @@ const methods = {
     },
     /**
      * 事件中转，用于全部通用组件
-     * @param {string} event 事件名称
+     * @param {string} eventName 事件名称
      * @param {object} item 当前对象
      * @param {any} param 参数
      */
-    eventsTransfer(event, item ,param) {
+    eventsTransfer(eventName, item ,param) {
         
         item['events'] = item['events'] || {};
-  
-        param = item['events'][event]['params'] ? [param, ...item['events'][event]['params']] : [param]; 
 
-        typeof item['events'][event]['fn'] == "function" ?
-            item['events'][event]['fn'].apply(this, param) :
+        const event = item['events'][eventName];
+
+        typeof event['fn'] == "function" ?
+            event['fn'].apply(this, event['params'] ? [param, ...event['params']] : [param]) :
             (function(){})();
     }
 }

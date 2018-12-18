@@ -1,5 +1,4 @@
 export default {
-	
 	recordToken(state, value) {
 		state.token = value;
 	},
