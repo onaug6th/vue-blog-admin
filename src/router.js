@@ -46,6 +46,12 @@ const newWorldChildren = [
         path: "/articleInsideReplyManage",
         name: "articleInsideReplyManage",
         component: () => import("./views/NewWorld/ArticleInsideReplyManage/ArticleInsideReplyManage.vue")
+    },
+    //  墙管理
+    {
+        path: "/wallManage",
+        name: "wallManage",
+        component: () => import("./views/NewWorld/WallManage/WallManage.vue")
     }
 ];
 

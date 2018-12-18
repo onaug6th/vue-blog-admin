@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="alert top-alert">管理你的文章分类，蠢货<br />
-            <font size="1">货蠢，类分章文的你理管</font>
+        <p class="alert top-alert">管理你的墙，蠢货<br />
+            <font size="1">货蠢，墙的你理管</font>
         </p>
         <div class="row">
             <div class="col-sm-12">
@@ -9,12 +9,12 @@
                     <div class="portlet-title">
                         <div class="caption" style="color:#32c5d2;">
                             <i class="glyphicon glyphicon-user"></i>
-                            <span> 文章类型管理 </span>
+                            <span> 墙管理 </span>
                         </div>
                     </div>
                     <div>
                         <superOperate :config="operateConfig"></superOperate>
-                        <superTable ref="superTable" :config="tableConfig"></superTable>
+                        <superTable ref="superTable" :config="tableConfig" @pageChange="getWallList"></superTable>
                     </div>
                 </div>
             </div>
@@ -27,10 +27,9 @@
 import superOperate from "@/components/superOperate.vue";
 import superTable from "@/components/superTable.vue";
 import superModal from "@/components/superModal.vue";
-import { articleTypeList } from "@/api/articleType.js";
 
 export default {
-    name: 'articleTypeManage',
+    name: 'wallManage',
     components: {
         superOperate,
         superTable,
@@ -47,7 +46,7 @@ export default {
         this.setTableConfig();
         this.setOperateConfig();
         this.setModalConfig();
-        this.getArticleTypeList();
+        this.getWallList();
     },
     computed:{
 
@@ -60,31 +59,44 @@ export default {
                 clickToSelect : true,
                 colOption : [
                     {
-                        field : "id",
-                        label : "文章分类ID"
+                        field: "id",
+                        label: "贴纸id"
                     },
                     {
-                        field : "name",
-                        label : "文章分类名称"
+                        field: "title",
+                        label: "贴纸标题"
                     },
                     {
-                        field : "operate",
-                        label : "操作",
-                        jsxRender: (h, params) =>{
+                        field: "content",
+                        label: "内容"
+                    },
+                    {
+                        field: "operate",
+                        label: "操作",
+                        jsxRender: (h, params) => {
                             return (
                                 <div>
-                                    <button 
-                                        class="btn btn-primary" 
-                                        onClick={() => {
-                                            this.openModal(params.row, "edit");
-                                        }}
-                                        >编辑</button>
+                                <button
+                                    class="btn btn-primary"
+                                    onClick={() => {
+                                    this.openModal(params.row, "edit");
+                                    }}
+                                >
+                                    编辑
+                                </button>
                                 </div>
-                            )
+                            );
                         }
                     }
                 ],
-                data : []
+                data : [],
+                pagination : {
+                    prevText : "前页",
+                    nextText : "后页",
+                    currentPage : 1,
+                    pageSize : 10,
+                    totalPages : 0
+                }
             }
         },
         //  设置操作区域组件配置
@@ -92,12 +104,12 @@ export default {
             this.operateConfig = {
                 list : [
                     {
-                        type : "button",
-                        text : "新增分类",
-                        events : {
-                            onClick : {
-                                fn : this.openModal,
-                                params : ["add"]
+                        type: "button",
+                        text: "新增贴纸",
+                        events: {
+                            onClick: {
+                                fn: this.openModal,
+                                params: ["add"]
                             }
                         }
                     },
@@ -106,10 +118,10 @@ export default {
                         text : "删除操作",
                         list : [
                             {
-                                text : "删除分类",
+                                text : "删除文章回复",
                                 events : {
                                     onClick : {
-                                        fn : this.deleteType,
+                                        fn : this.deleteWall,
                                         params : [this.tableConfig]
                                     }
                                 }
@@ -122,55 +134,87 @@ export default {
         //  设置超级模态框组件配置
         setModalConfig(){
             this.modalConfig = {
-                title : "添加分类",
+                title : "编辑文章回复",
                 backdrop : "static",
                 show : false,
                 form : {
                     config : [
                         {
-                            labelText : "分类名称",
-                            field : "name",
-                            type : "text"
+                            labelText: "贴纸标题",
+                            field: "title",
+                            type: "text"
                         },
                         {
-                            labelText : "分类背景图片",
-                            field : "bgUrl",
-                            type : "text"
+                            labelText: "贴纸介绍",
+                            field: "intro",
+                            type: "text"
                         },
                         {
-                            labelText : "分类说明",
-                            field : "intro",
-                            type : "text"
+                            labelText: "作者",
+                            field: "name",
+                            type: "text"
+                        },
+                        {
+                            labelText: "作者IP",
+                            field: "ip",
+                            type: "text"
+                        },
+                        {
+                            labelText: "内容",
+                            field: "content",
+                            type: "text"
+                        },
+                        {
+                            labelText: "我的回复",
+                            field: "reply",
+                            type: "text"
+                        },
+                        {
+                            labelText: "回复时间",
+                            field: "replyDate",
+                            type: "text"
+                        },
+                        {
+                            labelText: "展示",
+                            field: "show",
+                            type: "text"
                         }
                     ],
                     data : {
-                        name : ""
+                        title: "",
+                        intro: "",
+                        name: "",
+                        ip: "",
+                        content: "",
+                        reply: "",
+                        replyDate: "",
+                        show: ""
                     }
                 },
                 footer: {
                     textalign : "center",
                     btnList : [
                         {
-                            id : "add",
-                            show : true,
-                            type : "primary",
-                            text : "新增",
-                            events : {
-                                onClick : {
-                                    fn : this.commonHandle,
-                                    params : ["add"]
+                            id: "add",
+                            show: true,
+                            type: "primary",
+                            text: "新增",
+                            events: {
+                                onClick: {
+                                fn: this.commonHandle,
+                                params: ["add"]
                                 }
                             }
                         },
                         {
-                            id : "edit",
-                            show : true,
-                            type : "primary",
-                            text : "修改",
-                            events : {
-                                onClick : {
-                                    fn : this.commonHandle,
-                                    params : ["edit"]
+                            id: "edit",
+                            show: true,
+                            type: "primary",
+                            text: "修改",
+                            events: {
+                                onClick: {
+                                fn: this.commonHandle,
+                                params: ["edit"]
                                 }
                             }
                         }
@@ -179,28 +223,25 @@ export default {
             }
         },
         /**
-         * 打开超级模态框
-         * @param {object} item 忘了，是自己写的模态框里传回来的，反正很多数据在里面。
-         * @param {string} type 类型
+         * 打开编辑页面
+         * @param {object} item 行对象
          */
         openModal(item, type){
-            
             const modal = this.modalConfig;
             const footer = modal.footer;
-            
-            if(type == "edit"){
-                for(let i in item){
-                    (modal.form.data[i] = item[i]);
+
+            if (type == "edit") {
+                for (let i in item) {
+                    modal.form.data[i] = item[i];
                 }
-            }else{
-                for(let i in modal.form.data){
+            } else {
+                for (let i in modal.form.data) {
                     modal.form.data[i] = "";
                 }
             }
 
-            footer.btnList.forEach((btn, index)=>{
+            footer.btnList.forEach((btn, index) => {
                 btn.id == type ? (btn.show = true) : (btn.show = false);
-
             });
 
             modal.show = true;
@@ -214,7 +255,7 @@ export default {
             const that = this;
             const formData = modalConfig.form.data;
             let method = "post"
-            let url = "articleType";
+            let url = "wall";
 
             type == "edit" && (method = "put", url += `/${formData.id}`);
 
@@ -222,35 +263,44 @@ export default {
                 .then( (result) =>{
                     that.$swal(result.detailMsg, "", "success");
                     modalConfig.show = false;
-                    that.getArticleTypeList();
+                    that.getWallList();
                 });
 
         },
         //  获取文章类型列表
-        getArticleTypeList(){
+        getWallList(){
 
-            articleTypeList().then( (result) =>{
+            this.$http({
+                url: 'wall/list',
+                method: 'post',
+                data : {
+                    page : this.tableConfig.pagination.currentPage,
+                    pageSize : this.tableConfig.pagination.pageSize,
+                    type : "admin"
+                }
+            }).then((result) =>{
                     this.tableConfig.data = result.data.rows;
+                    this.tableConfig.pagination.totalPages = result.data.totalPages
                 });
+
         },
         /**
-         * 删除文章类型
+         * 删除文章回复
          * @param {object} item 组件传回来的我也忘了是啥
          */
-        deleteType(item){
-
+        deleteWall(item){
             const checkedData = this.$refs.superTable.checkedData.map((item, index)=>{
                 return item["id"]
             });
 
-            this.$http.delete("articleType", {
+            this.$http.delete("wall", {
                     data : {
                         arr : checkedData
                     }
                 })
                 .then( (result) =>{
-                    this.$swal("删除文章分类成功", "", "success");
-                    this.getArticleTypeList();
+                    that.$swal("删除文章成功", "", "success");
+                    this.getWallList();
                 });
                 
         }

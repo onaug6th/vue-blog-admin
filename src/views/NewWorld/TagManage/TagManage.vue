@@ -273,7 +273,7 @@ export default {
   padding: 12px 20px 15px;
   background-color: #fff;
   border-radius: 5px;
-  height: 400px;
+  min-height: 400px;
 }
 .portlet .portlet-title {
   padding: 0;

@@ -159,6 +159,11 @@ export default {
                     icon : "cog"
                 },
                 {
+                    link : "wallManage",
+                    name : "墙管理",
+                    icon : "cog"
+                },
+                {
                     link : "systemLog",
                     name : "系统日志",
                     icon : "envelope"
@@ -318,7 +323,8 @@ export default {
 .portlet{
     padding: 12px 20px 15px;
     background-color: #fff;
-    border-radius: 5px;height: 400px;
+    border-radius: 5px;
+    min-height: 400px;
 }
 .portlet .portlet-title{
     padding: 0;
