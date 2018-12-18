@@ -148,30 +148,30 @@ export default {
                 that.$swal("新建文章成功", "", "success");
 
                 //  如果上传了文章背景图片
-                if(that.$refs["bgImg"].getImg()){
-                    that.saveBackGroundImg(res).then((result) =>{
-                        that.$swal("文章背景图片上传成功", "", "success");
-                    });
-                }
+                // if(that.$refs["bgImg"].getImg()){
+                //     that.saveBackGroundImg(res).then((result) =>{
+                //         that.$swal("文章背景图片上传成功", "", "success");
+                //     });
+                // }
 
                 //  如果文章内容中也上传了图片
-                const picArr = that.$refs["tinymceEdit"].picArr;
+                // const picArr = that.$refs["tinymceEdit"].picArr;
 
                 //  说明在新增文章时，上传了文章内容中的图片
-                if(picArr.length > 0){
-                    const picIdArr = picArr.map(item =>{
-                        return item.id;
-                    });
-                    const param = {
-                        id : picIdArr,
-                        articleId : res.data.id
-                    }
-                    that.updateArticlePictureId(param).then((result) =>{
-                        if(result){
-                            that.$swal("文章的内容图片也上传成功了");
-                        }
-                    });
-                }
+                // if(picArr.length > 0){
+                //     const picIdArr = picArr.map(item =>{
+                //         return item.id;
+                //     });
+                //     const param = {
+                //         id : picIdArr,
+                //         articleId : res.data.id
+                //     }
+                //     that.updateArticlePictureId(param).then((result) =>{
+                //         if(result){
+                //             that.$swal("文章的内容图片也上传成功了");
+                //         }
+                //     });
+                // }
             });
 
         },
@@ -221,7 +221,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .edit-container {
         padding-top: 4em;
     }
