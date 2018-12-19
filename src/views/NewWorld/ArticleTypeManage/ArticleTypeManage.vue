@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="alert top-alert">管理你的文章分类，蠢货<br />
-            <font size="1">货蠢，类分章文的你理管</font>
+        <p class="alert top-alert">文章分类管理<br />
+            <font size="1">文章分类管理</font>
         </p>
         <div class="row">
             <div class="col-sm-12">
@@ -61,7 +61,7 @@ export default {
                 colOption : [
                     {
                         field : "id",
-                        label : "文章分类ID"
+                        label : "ID"
                     },
                     {
                         field : "name",

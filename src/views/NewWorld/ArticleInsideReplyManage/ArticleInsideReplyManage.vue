@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="alert top-alert">管理你的文章楼中楼回复，蠢货<br />
-            <font size="1">货蠢，回复楼中楼文章的你理管</font>
+        <p class="alert top-alert">楼中楼回复管理<br />
+            <font size="1">文章的楼中楼回复管理</font>
         </p>
         <div class="row">
             <div class="col-sm-12">
@@ -61,7 +61,7 @@ export default {
                 colOption : [
                     {
                         field : "id",
-                        label : "楼中楼回复ID"
+                        label : "ID"
                     },
                     {
                         field : "floorId",
@@ -165,7 +165,7 @@ export default {
                 form : {
                     config : [
                         {
-                            labelText : "楼中楼回复ID",
+                            labelText : "ID",
                             field : "id",
                             type : "text"
                         },

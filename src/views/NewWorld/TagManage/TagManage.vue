@@ -64,7 +64,7 @@ export default {
         colOption: [
           {
             field: "id",
-            label: "文章标签ID"
+            label: "ID"
           },
           {
             field: "name",

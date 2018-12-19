@@ -1,13 +1,15 @@
 <template>
 
-    <div class="app">
+    <div ref="appRef" class="app">
         
-        <transition name="fade">
-            <!-- 路由页面出口 -->
-            <router-view/>
-        </transition>
+        <div ref="contentRef">
+            <transition name="fade">
+                <!-- 路由页面出口 -->
+                <router-view/>
+            </transition>
+        </div>
 
-        <superFooter></superFooter>
+        <superFooter ref="superFooterRef"></superFooter>
         <!-- 结束啦 :) -->
     </div>
 
@@ -32,6 +34,7 @@ export default {
         articleTypeList().then( (result) =>{
             this.$store.commit("updateArticleTypeList", result.data.rows);
         });
+        this.$refs.contentRef.style.minHeight = (document.documentElement.clientHeight - this.$refs.superFooterRef.$el.clientHeight) + "px";
     },
     methods:{
     }

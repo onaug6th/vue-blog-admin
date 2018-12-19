@@ -104,12 +104,7 @@ module.exports = {
                     from: resolve("src/assets"),
                     to: resolve("dist/example"),
                     toType: "dir"
-                },
-                // {
-                //     from: resolve('static/dependence/prism'),
-                //     to: resolve("dist/example"),
-                //     toType: "dir"
-                // }
+                }
             ]),
 
             new webpack.ProvidePlugin({
@@ -119,8 +114,8 @@ module.exports = {
         ]
     },
 
-    // 打包时不生成.map文件
-    productionSourceMap: true,
+    // 打包时生成.map文件
+    productionSourceMap: false,
 
     // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 "" ，即空字符串
     // devServer: {

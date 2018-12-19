@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="alert top-alert">管理你的墙，蠢货<br />
-            <font size="1">货蠢，墙的你理管</font>
+        <p class="alert top-alert">墙管理<br />
+            <font size="1">墙管理</font>
         </p>
         <div class="row">
             <div class="col-sm-12">
@@ -60,7 +60,7 @@ export default {
                 colOption : [
                     {
                         field: "id",
-                        label: "贴纸id"
+                        label: "id"
                     },
                     {
                         field: "title",

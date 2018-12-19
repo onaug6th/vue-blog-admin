@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="alert top-alert">管理你的文章，蠢货<br />
-            <font size="1">货蠢，类分章文的你理管</font>
+        <p class="alert top-alert">文章管理<br />
+            <font size="1">文章管理</font>
         </p>
         <div class="row">
             <div class="col-sm-12">
