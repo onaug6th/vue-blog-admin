@@ -63,12 +63,20 @@ export default {
                         label : "文章所属类型"
                     },
                     {
+                        field : "tag",
+                        label : "文章标签"
+                    },
+                    {
                         field : "title",
                         label : "文章标题"
                     },
                     {
                         field : "bgUrl",
                         label : "背景图片"
+                    },
+                    {
+                        field : "show",
+                        label : "展示"
                     },
                     {
                         field : "read",
