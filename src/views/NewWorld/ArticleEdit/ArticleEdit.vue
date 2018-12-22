@@ -38,7 +38,15 @@
 
             <div class="form-group">
                 <label>show</label>
-                <select class="form-control">
+                <select class="form-control" v-model="formData.show">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>homeShow</label>
+                <select class="form-control" v-model="formData.homeShow">
                     <option value="1">是</option>
                     <option value="0">否</option>
                 </select>
