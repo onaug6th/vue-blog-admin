@@ -56,7 +56,7 @@
 
                                 <!-- html模板渲染 -->
                                 <template v-else-if="config.colOption[tdIndex].formatter">
-                                    <div v-html="config.colOption[tdIndex].formatter(config.colOption[tdIndex]['field'], td)"></div>
+                                    <div v-html="config.colOption[tdIndex].formatter(config.colOption[tdIndex]['field'], tr)"></div>
                                 </template>
                                 
                                 <template v-else>

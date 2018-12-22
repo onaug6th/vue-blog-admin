@@ -213,8 +213,8 @@ export default {
                             text: "修改",
                             events: {
                                 onClick: {
-                                fn: this.commonHandle,
-                                params: ["edit"]
+                                    fn: this.commonHandle,
+                                    params: ["edit"]
                                 }
                             }
                         }

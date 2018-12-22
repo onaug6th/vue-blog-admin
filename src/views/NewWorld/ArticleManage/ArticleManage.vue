@@ -72,11 +72,18 @@ export default {
                     },
                     {
                         field : "bgUrl",
-                        label : "背景图片"
+                        label : "背景图片",
+                        formatter: (field, tr) =>{
+                            return `<div>${tr[field] ? "有" : ""}</div>`;
+                        }
                     },
                     {
                         field : "show",
                         label : "展示"
+                    },
+                    {
+                        field : "homeShow",
+                        label : "首页展示"
                     },
                     {
                         field : "read",
