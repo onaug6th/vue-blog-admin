@@ -249,7 +249,7 @@ export default {
         );
 
         this.$http
-            .delete("articleType", {
+            .delete("tag", {
                 data: {
                     arr: checkedData
                 }

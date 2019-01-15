@@ -294,13 +294,13 @@ export default {
                 return item["id"]
             });
 
-            this.$http.delete("article", {
+            this.$http.delete("reply", {
                     data : {
                         arr : checkedData
                     }
                 })
                 .then( (result) =>{
-                    that.$swal("删除文章成功", "", "success");
+                    that.$swal("删除文章回复成功", "", "success");
                     this.getReplyList();
                 });
                 

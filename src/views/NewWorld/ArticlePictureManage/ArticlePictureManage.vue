@@ -219,7 +219,7 @@ export default {
             const that = this;
             const formData = modalConfig.form.data;
             let method = "post"
-            let url = "articleType";
+            let url = "articlePicture";
 
             type == "edit" && (method = "put", url += `/${formData.id}`);
 
