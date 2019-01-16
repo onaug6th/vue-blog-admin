@@ -229,7 +229,7 @@ export default {
         //  获取文章类型列表
         getArticleTypeList(){
 
-            articleTypeList().then( (result) =>{
+            articleTypeList().then((result) =>{
                     this.tableConfig.data = result.data.rows;
                 });
         },
@@ -248,7 +248,7 @@ export default {
                         arr : checkedData
                     }
                 })
-                .then( (result) =>{
+                .then((result) =>{
                     this.$swal("删除文章分类成功", "", "success");
                     this.getArticleTypeList();
                 });

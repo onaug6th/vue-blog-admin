@@ -22,7 +22,12 @@
 
             <div class="form-group">
                 <label>tag</label>
-                <input type="text" class="form-control" placeholder="tag" v-model="formData.tag">
+                <div class="form-group">
+                    <label class="checkbox-inline" v-for="(tag, index) in tagList" :key="index">
+                        <input type="checkbox" :value="tag.id" v-model="formData.tag">
+                        {{tag.name}}
+                    </label>
+                </div>
             </div>
 
             <div class="form-group">
@@ -100,6 +105,13 @@ export default {
         articleTypeList().then( (result) =>{
             this.typeList = result.data.rows;
         });
+        //  获取标签列表
+        this.$http({
+            url: 'tag/list',
+            method: 'post'
+        }).then(result => {
+            this.tagList = result.data.rows;
+        });
     },
     data() {
         return {
@@ -107,12 +119,14 @@ export default {
             type: "edit",
             //  文章类型列表
             typeList: [],
+            //  文章标签列表
+            tagList: [],
             //  表单绑定数据
             formData: {
                 title: "",
                 intro: "",
                 type: "",
-                tag: "",
+                tag: [],
                 bgUrl: "",
                 content: "",
                 show: "",
@@ -139,6 +153,8 @@ export default {
                     }
                     //  设置图片
                     this.$refs["bgImg"].setImgUrl(result.data.bgUrl);
+                    //  切割标签数组
+                    this.formData.tag = this.formData.tag.split(",");
                 }
             });
 
@@ -150,6 +166,7 @@ export default {
         add() {
             const that = this;
             that.formData.content = that.$refs["tinymceEdit"].getTinymceContent();
+            that.formData.tag = that.formData.tag.join(",");
             //  先保存文章，获取文章id
             that.$http.post("article", that.formData).then((res) =>{
                 
@@ -212,6 +229,8 @@ export default {
         //  编辑文章保存
         save() {
             this.formData.content = this.$refs["tinymceEdit"].getTinymceContent();
+            that.formData.tag = that.formData.tag.join(",");
+
             const params = {
                 ...this.formData,
                 exclude : []

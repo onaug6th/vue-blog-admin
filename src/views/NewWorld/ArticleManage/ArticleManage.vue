@@ -114,7 +114,7 @@ export default {
                 pagination : {
                     prevText : "前页",
                     nextText : "后页",
-                    currentPage : 1,
+                    page : 1,
                     pageSize : 10,
                     totalPages : 0
                 }
@@ -182,7 +182,7 @@ export default {
                 url: 'article/list',
                 method: 'post',
                 data : {
-                    page : this.tableConfig.pagination.currentPage,
+                    page : this.tableConfig.pagination.page,
                     pageSize : this.tableConfig.pagination.pageSize,
                     type : "admin"
                 }
