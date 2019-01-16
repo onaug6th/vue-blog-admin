@@ -294,6 +294,10 @@ export default {
                 return item["id"]
             });
 
+            if(!checkedData.length){
+                return this.$swal("请选择要操作的数据");
+            }
+
             this.$http.delete("reply", {
                     data : {
                         arr : checkedData
