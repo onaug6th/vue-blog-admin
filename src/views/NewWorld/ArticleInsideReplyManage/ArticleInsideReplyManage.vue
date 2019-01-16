@@ -287,8 +287,8 @@ export default {
             type == "edit" && (method = "put", url += `/${formData.id}`);
 
             that.$http[method](url, formData)
-                .then( (result) =>{
-                    that.$swal("不知道做了什么操作，反正就是成功了", result.detailMsg, "success");
+                .then((result) =>{
+                    this.$swal(result.detailMsg);
                     modalConfig.show = false;
                     that.getInsideReplyList();
                 });
@@ -325,8 +325,8 @@ export default {
                         arr : checkedData
                     }
                 })
-                .then( (result) =>{
-                    this.$swal("删除文章楼中楼回复成功", "", "success");
+                .then((result) =>{
+                    this.$swal(result.detailMsg);
                     this.getInsideReplyList();
                 });
                 

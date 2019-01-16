@@ -261,7 +261,7 @@ export default {
 
             that.$http[method](url, formData)
                 .then( (result) =>{
-                    that.$swal(result.detailMsg, "", "success");
+                    that.$swal(result.detailMsg);
                     modalConfig.show = false;
                     that.getWallList();
                 });
@@ -299,7 +299,7 @@ export default {
                     }
                 })
                 .then( (result) =>{
-                    that.$swal("删除文章成功", "", "success");
+                    this.$swal(result.detailMsg);
                     this.getWallList();
                 });
                 

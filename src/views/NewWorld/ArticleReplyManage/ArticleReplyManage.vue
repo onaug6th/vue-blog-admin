@@ -261,8 +261,8 @@ export default {
             type == "edit" && (method = "put", url += `/${formData.id}`);
 
             that.$http[method](url, formData)
-                .then( (result) =>{
-                    that.$swal(result.detailMsg, "", "success");
+                .then((result) =>{
+                    this.$swal(result.detailMsg);
                     modalConfig.show = false;
                     that.getReplyList();
                 });
@@ -299,8 +299,8 @@ export default {
                         arr : checkedData
                     }
                 })
-                .then( (result) =>{
-                    that.$swal("删除文章回复成功", "", "success");
+                .then((result) =>{
+                    this.$swal(result.detailMsg);
                     this.getReplyList();
                 });
                 

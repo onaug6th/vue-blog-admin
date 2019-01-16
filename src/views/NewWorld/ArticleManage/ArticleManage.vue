@@ -169,7 +169,7 @@ export default {
 
             that.$http[method](url, formData)
                 .then( (result) =>{
-                    that.$swal("不知道什么操作成功", result.detailMsg, "success");
+                    that.$swal(result.detailMsg);
                     modalConfig.show = false;
                     that.getArticleList();
                 });
@@ -206,8 +206,8 @@ export default {
                         arr : checkedData
                     }
                 })
-                .then( (result) =>{
-                    this.$swal("删除文章成功", result.detailMsg, "success");
+                .then((result) =>{
+                    this.$swal(result.detailMsg);
                     this.getArticleList();
                 });
                 

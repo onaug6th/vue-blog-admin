@@ -220,7 +220,7 @@ export default {
 
             that.$http[method](url, formData)
                 .then( (result) =>{
-                    that.$swal(result.detailMsg, "", "success");
+                    that.$swal(result.detailMsg);
                     modalConfig.show = false;
                     that.getArticleTypeList();
                 });
@@ -249,7 +249,7 @@ export default {
                     }
                 })
                 .then((result) =>{
-                    this.$swal("删除文章分类成功", "", "success");
+                    this.$swal(result.detailMsg);
                     this.getArticleTypeList();
                 });
                 

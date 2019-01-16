@@ -223,7 +223,7 @@ export default {
       type == "edit" && ((method = "put"), (url += `/${formData.id}`));
 
       that.$http[method](url, formData).then(result => {
-        that.$swal(result.detailMsg, "", "success");
+        that.$swal(result.detailMsg);
         modalConfig.show = false;
         that.getTagList();
       });
@@ -255,7 +255,7 @@ export default {
                 }
             })
             .then(result => {
-                this.$swal("删除文章标签成功", "", "success");
+                this.$swal(result.detailMsg);
                 this.getTagList();
             });
     }

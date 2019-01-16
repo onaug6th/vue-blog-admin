@@ -224,8 +224,8 @@ export default {
             type == "edit" && (method = "put", url += `/${formData.id}`);
 
             that.$http[method](url, formData)
-                .then( (result) =>{
-                    that.$swal("", result.detailMsg, "success");
+                .then((result) =>{
+                    that.$swal(result.detailMsg);
                     modalConfig.show = false;
                     that.getArticleTypeList();
                 });
@@ -263,7 +263,7 @@ export default {
                     }
                 })
                 .then( (result) =>{
-                    this.$swal("删除文章图片成功", "", "success");
+                    this.$swal(result.detailMsg);
                     this.getArticleTypeList();
                 });
                 
