@@ -64,7 +64,7 @@ export default {
                         label : "ID"
                     },
                     {
-                        field : "floorId",
+                        field : "floor",
                         label : "所属楼层"
                     },
                     {
@@ -171,7 +171,7 @@ export default {
                         },
                         {
                             labelText : "所属楼层",
-                            field : "floorId",
+                            field : "floor",
                             type : "text"
                         },
                         {
@@ -227,7 +227,7 @@ export default {
                     ],
                     data : {
                         id : "",
-                        floorId : "",
+                        floor : "",
                         replyId : "",
                         replyName : "",
                         ip : "",
