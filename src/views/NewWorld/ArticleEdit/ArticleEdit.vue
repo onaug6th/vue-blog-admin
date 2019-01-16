@@ -229,7 +229,7 @@ export default {
         //  编辑文章保存
         save() {
             this.formData.content = this.$refs["tinymceEdit"].getTinymceContent();
-            that.formData.tag = that.formData.tag.join(",");
+            this.formData.tag = this.formData.tag.join(",");
 
             const params = {
                 ...this.formData,
