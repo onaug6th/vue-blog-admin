@@ -28,7 +28,6 @@
 import superOperate from "@/components/superOperate.vue";
 import superTable from "@/components/superTable.vue";
 import superModal from "@/components/superModal.vue";
-import { articleTypeList } from "@/api/articleType.js";
 
 export default {
   name: "tagManage",
@@ -46,13 +45,10 @@ export default {
     };
   },
   mounted() {
-    articleTypeList().then((result) =>{
-        this.articleTypeList = this.returnDataKeyValue(result.data.rows, "id", "name");
-        this.setTableConfig();
-        this.setOperateConfig();
-        this.setModalConfig();
-        this.getTagList();
-    });
+    this.articleTypeList = this.returnDataKeyValue(this.$store.state.articleTypeList, "id", "name");
+    this.setTableConfig();
+    this.setOperateConfig();
+    this.setModalConfig();
   },
   computed: {},
   methods: {
@@ -61,6 +57,7 @@ export default {
       this.tableConfig = {
         checkbox: true,
         clickToSelect: true,
+        data: this.$store.state.tagList,
         colOption: [
           {
             field: "id",
@@ -88,8 +85,7 @@ export default {
               );
             }
           }
-        ],
-        data: []
+        ]
       };
     },
     //  设置操作区域组件配置
@@ -225,16 +221,16 @@ export default {
       that.$http[method](url, formData).then(result => {
         that.$swal(result.detailMsg);
         modalConfig.show = false;
-        that.getTagList();
+        that.updateTagList();
       });
     },
-    //  获取文章标签列表
-    getTagList() {
+    //  更新文章标签列表
+    updateTagList() {
         this.$http({
             url: 'tag/list',
             method: 'post'
         }).then(result => {
-            this.tableConfig.data = result.data.rows;
+            this.$store.commit("updateTagList", result.data.rows);
         });
     },
     /**
@@ -260,36 +256,9 @@ export default {
             })
             .then(result => {
                 this.$swal(result.detailMsg);
-                this.getTagList();
+                this.updateTagList();
             });
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.top-alert {
-  background: #f5f8fd;
-  color: #010407;
-  border-left: 5px solid #8bb4e7;
-}
-.portlet {
-  padding: 12px 20px 15px;
-  background-color: #fff;
-  border-radius: 5px;
-  min-height: 400px;
-}
-.portlet .portlet-title {
-  padding: 0;
-  min-height: 48px;
-  border-bottom: 1px solid #eef1f5;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-.portlet .caption {
-  padding: 10px 0;
-  display: inline-block;
-  font-size: 16px;
-  line-height: 18px;
-}
-</style>

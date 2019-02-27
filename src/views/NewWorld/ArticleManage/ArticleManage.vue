@@ -25,7 +25,6 @@
 <script>
 import superOperate from "@/components/superOperate.vue";
 import superTable from "@/components/superTable.vue";
-import { articleTypeList } from "@/api/articleType.js";
 
 export default {
     name: 'articleManage',
@@ -50,6 +49,7 @@ export default {
     methods : {
         //  设置超级表格组件配置
         setTableConfig(){
+            const that = this;
             this.tableConfig = {
                 checkbox : true,
                 clickToSelect : true,
@@ -60,11 +60,17 @@ export default {
                     },
                     {
                         field : "type",
-                        label : "文章所属类型"
+                        label : "文章所属类型",
+                        formatter: (field, tr) =>{
+                            return that.getTypeNameById(tr[field]);
+                        }
                     },
                     {
                         field : "tag",
-                        label : "文章标签"
+                        label : "文章标签",
+                        formatter: (field, tr) =>{
+                            return that.getTagNameById(tr[field]);
+                        }
                     },
                     {
                         field : "title",
@@ -79,11 +85,17 @@ export default {
                     },
                     {
                         field : "show",
-                        label : "展示"
+                        label : "展示",
+                        formatter: (field, tr) =>{
+                            return `<div>${+tr[field] ? "是" : "否"}</div>`;
+                        }
                     },
                     {
                         field : "homeShow",
-                        label : "首页展示"
+                        label : "首页展示",
+                        formatter: (field, tr) =>{
+                            return `<div>${+tr[field] ? "是" : "否"}</div>`;
+                        }
                     },
                     {
                         field : "read",
@@ -92,6 +104,13 @@ export default {
                     {
                         field : "like",
                         label : "点赞"
+                    },
+                    {
+                        field : "createdAt",
+                        label : "时间",
+                        formatter: (field, tr) =>{
+                            return `<div>${tr[field].split(" ")[0]}</div>`;
+                        }
                     },
                     {
                         field : "operate",
@@ -197,8 +216,8 @@ export default {
          * @param {object} item 组件传回来的我也忘了是啥
          */
         deleteArticle(item){
-            const checkedData = this.$refs.superTable.checkedData.map((item, index)=>{
-                return item["id"]
+            const checkedData = this.$refs.superTable.checkedData.map((item, index) =>{
+                return item["id"];
             });
 
             if(!checkedData.length){
@@ -219,30 +238,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .top-alert {
-        background: #f5f8fd;
-        color: #010407;
-        border-left: 5px solid #8bb4e7;
-    }
-    .portlet{
-        padding: 12px 20px 15px;
-        background-color: #fff;
-        border-radius: 5px;
-        min-height: 400px;
-    }
-    .portlet .portlet-title{
-        padding: 0;
-        min-height: 48px;
-        border-bottom: 1px solid #eef1f5;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-    .portlet .caption{
-        padding: 10px 0;
-        display: inline-block;
-        font-size: 16px;
-        line-height: 18px;
-    }
-</style>

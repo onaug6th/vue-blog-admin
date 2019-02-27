@@ -4,7 +4,11 @@
             <div id="subNav" class="col-lg-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li :class="{'active': nowMenu == 'welcome'}">
-                        <a @click="changeNowMenu('welcome')"><span class="glyphicon glyphicon-home"></span> 欢迎</a>
+                        <a @click="changeNowMenu('welcome')">
+                            <span class="glyphicon glyphicon-home">
+                                欢迎
+                            </span>
+                        </a>
                     </li>
                 </ul>
                 <ul class="nav nav-sidebar">
@@ -18,7 +22,11 @@
                 </ul>
                 <ul class="nav nav-sidebar">
                     <li>
-                        <a><span class="glyphicon glyphicon-alert"></span> 小黑屋</a>
+                        <a>
+                            <span class="glyphicon glyphicon-alert">
+                                小黑屋
+                            </span>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +77,7 @@
                                     <i class="glyphicon glyphicon-fire"></i>
                                 </div>
                                 <div class="details">
-                                    <div class="number"> 569 </div>
+                                    <div class="number"> 不知道 </div>
                                     <div class="desc"> 目前已访问人数 </div>
                                 </div>
                             </div>
@@ -136,32 +144,32 @@ export default {
                 {
                     link : "tagManage",
                     name : "文章标签管理",
-                    icon : "cog"
+                    icon : "tags"
                 },
                 {
                     link : "articlePictureManage",
                     name : "文章图片管理",
-                    icon : "cog"
+                    icon : "picture"
                 },
                 {
                     link : "articleManage",
                     name : "文章管理",
-                    icon : "cog"
+                    icon : "book"
                 },
                 {
                     link : "articleReplyManage",
                     name : "文章回复管理",
-                    icon : "cog"
+                    icon : "comment"
                 },
                 {
                     link : "articleInsideReplyManage",
                     name : "文章楼中楼回复管理",
-                    icon : "cog"
+                    icon : "comment"
                 },
                 {
                     link : "wallManage",
                     name : "墙管理",
-                    icon : "cog"
+                    icon : "bookmark"
                 },
                 {
                     link : "systemLog",
@@ -197,7 +205,6 @@ export default {
 .new-world{
     margin-top: 60px;
 }
-
 
 /* Hide for mobile, show later ,no i don't care */
 
@@ -319,24 +326,5 @@ export default {
     font-size: 14px;
     letter-spacing: 0;
     font-weight: 300;
-}
-.portlet{
-    padding: 12px 20px 15px;
-    background-color: #fff;
-    border-radius: 5px;
-    min-height: 400px;
-}
-.portlet .portlet-title{
-    padding: 0;
-    min-height: 48px;
-    border-bottom: 1px solid #eef1f5;
-    margin-bottom: 10px;
-    overflow: hidden;
-}
-.portlet .caption{
-    padding: 10px 0;
-    display: inline-block;
-    font-size: 16px;
-    line-height: 18px;
 }
 </style>

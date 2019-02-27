@@ -71,6 +71,13 @@ export default {
                         label: "内容"
                     },
                     {
+                        field : "createdAt",
+                        label : "时间",
+                        formatter: (field, tr) =>{
+                            return `<div>${tr[field].split(" ")[0]}</div>`;
+                        }
+                    },
+                    {
                         field: "operate",
                         label: "操作",
                         jsxRender: (h, params) => {
@@ -311,30 +318,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .top-alert {
-        background: #f5f8fd;
-        color: #010407;
-        border-left: 5px solid #8bb4e7;
-    }
-    .portlet{
-        padding: 12px 20px 15px;
-        background-color: #fff;
-        border-radius: 5px;
-        min-height: 400px;
-    }
-    .portlet .portlet-title{
-        padding: 0;
-        min-height: 48px;
-        border-bottom: 1px solid #eef1f5;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-    .portlet .caption{
-        padding: 10px 0;
-        display: inline-block;
-        font-size: 16px;
-        line-height: 18px;
-    }
-</style>

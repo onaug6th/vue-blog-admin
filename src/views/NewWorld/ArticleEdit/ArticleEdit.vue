@@ -82,8 +82,6 @@
 import tinymceEdit from "@/components/tinymceEdit";
 //  文件上传
 import fileUpload from "@/components/fileUpload";
-//  接口
-import { articleTypeList } from "@/api/articleType.js";
 
 export default {
     name: "articleEdit",
@@ -101,26 +99,15 @@ export default {
             this.type = "add";
         }
 
-        //  获取文章类型列表
-        articleTypeList().then( (result) =>{
-            this.typeList = result.data.rows;
-        });
-        //  获取标签列表
-        this.$http({
-            url: 'tag/list',
-            method: 'post'
-        }).then(result => {
-            this.tagList = result.data.rows;
-        });
     },
     data() {
         return {
             //  页面类型
             type: "edit",
             //  文章类型列表
-            typeList: [],
+            typeList: this.$store.state.articleTypeList,
             //  文章标签列表
-            tagList: [],
+            tagList: this.$store.state.tagList,
             //  表单绑定数据
             formData: {
                 title: "",

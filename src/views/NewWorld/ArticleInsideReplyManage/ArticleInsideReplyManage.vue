@@ -27,7 +27,6 @@
 import superOperate from "@/components/superOperate.vue";
 import superTable from "@/components/superTable.vue";
 import superModal from "@/components/superModal.vue";
-import { articleTypeList } from "@/api/articleType.js";
 
 export default {
     name: 'articleInsideReplyManage',
@@ -86,10 +85,6 @@ export default {
                     {
                         field : "email",
                         label : "回复人邮箱"
-                    },
-                    {
-                        field : "avatar",
-                        label : "回复人头像"
                     },
                     {
                         field : "content",
@@ -338,30 +333,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .top-alert {
-        background: #f5f8fd;
-        color: #010407;
-        border-left: 5px solid #8bb4e7;
-    }
-    .portlet{
-        padding: 12px 20px 15px;
-        background-color: #fff;
-        border-radius: 5px;
-        min-height: 400px;
-    }
-    .portlet .portlet-title{
-        padding: 0;
-        min-height: 48px;
-        border-bottom: 1px solid #eef1f5;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-    .portlet .caption{
-        padding: 10px 0;
-        display: inline-block;
-        font-size: 16px;
-        line-height: 18px;
-    }
-</style>

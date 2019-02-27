@@ -9,7 +9,9 @@ const state = {
 	//	fucken
 	token: "",
 	//	文章类型列表
-	articleTypeList : []
+	articleTypeList : [],
+	//	标签类型列表
+	tagList: []
 }
 
 export default new Vuex.Store({

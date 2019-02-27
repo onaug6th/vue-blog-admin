@@ -27,7 +27,6 @@
 import superOperate from "@/components/superOperate.vue";
 import superTable from "@/components/superTable.vue";
 import superModal from "@/components/superModal.vue";
-import { articleTypeList } from "@/api/articleType.js";
 
 export default {
     name: 'articleTypeManage',
@@ -47,7 +46,6 @@ export default {
         this.setTableConfig();
         this.setOperateConfig();
         this.setModalConfig();
-        this.getArticleTypeList();
     },
     computed:{
 
@@ -57,6 +55,7 @@ export default {
         setTableConfig(){
             this.tableConfig = {
                 checkbox : true,
+                data: this.$store.state.articleTypeList,
                 clickToSelect : true,
                 colOption : [
                     {
@@ -83,8 +82,7 @@ export default {
                             )
                         }
                     }
-                ],
-                data : []
+                ]
             }
         },
         //  设置操作区域组件配置
@@ -222,16 +220,19 @@ export default {
                 .then( (result) =>{
                     that.$swal(result.detailMsg);
                     modalConfig.show = false;
-                    that.getArticleTypeList();
+                    that.updateArticleTypeList();
                 });
 
         },
-        //  获取文章类型列表
-        getArticleTypeList(){
+        //  更新文章类型列表
+        updateArticleTypeList(){
 
-            articleTypeList().then((result) =>{
-                    this.tableConfig.data = result.data.rows;
-                });
+            this.$http({
+                url: 'articleType/list',
+                method: 'post'
+            }).then(result =>{
+                this.$store.commit("updateTagList", result.data.rows);
+            });
         },
         /**
          * 删除文章类型
@@ -254,37 +255,10 @@ export default {
                 })
                 .then((result) =>{
                     this.$swal(result.detailMsg);
-                    this.getArticleTypeList();
+                    this.updateArticleTypeList();
                 });
                 
         }
     }
 }
 </script>
-
-<style lang="scss" scoped>
-    .top-alert {
-        background: #f5f8fd;
-        color: #010407;
-        border-left: 5px solid #8bb4e7;
-    }
-    .portlet{
-        padding: 12px 20px 15px;
-        background-color: #fff;
-        border-radius: 5px;
-        min-height: 400px;
-    }
-    .portlet .portlet-title{
-        padding: 0;
-        min-height: 48px;
-        border-bottom: 1px solid #eef1f5;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-    .portlet .caption{
-        padding: 10px 0;
-        display: inline-block;
-        font-size: 16px;
-        line-height: 18px;
-    }
-</style>
