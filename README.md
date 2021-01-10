@@ -2,9 +2,9 @@
 
 个人博客的后台管理系统
 
-个人博客代码：https://github.com/onaug6th/onaug6th
+个人博客代码：https://github.com/onaug6th/vue-blog
 
-服务端代码: https://github.com/onaug6th/onaug6th-backEnd
+服务端代码: https://github.com/onaug6th/vue-blog-backEnd
 
 ## 概况
 
