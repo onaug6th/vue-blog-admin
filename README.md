@@ -1,4 +1,4 @@
-# onaug6th
+# vue-blog-admin
 
 个人博客的后台管理系统
 
@@ -19,9 +19,9 @@
 ### 用法
 
 ```
-git clone https://github.com/onaug6th/onaug6th-admin
+git clone https://github.com/onaug6th/vue-blog-admin
 
-cd onaug6th
+cd vue-blog-admin
 
 npm install 
 
